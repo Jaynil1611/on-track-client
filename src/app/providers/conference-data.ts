@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { UserData } from './user-data';
+import { FirebaseService } from '../firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,16 @@ import { UserData } from './user-data';
 export class ConferenceData {
   data: any;
 
-  constructor(public http: HttpClient, public user: UserData) {}
+  constructor(public http: HttpClient, public user: UserData,public firebase:FirebaseService) {}
 
   load(): any {
     if (this.data) {
       return of(this.data);
     } else {
-      return this.http
-        .get('assets/data/data.json')
+      return this.http.get('/assets/data/data.json')
         .pipe(map(this.processData, this));
+      // return this.firebase.loadSchedule()
+      //   .pipe(map(this.processData, this));
     }
   }
 

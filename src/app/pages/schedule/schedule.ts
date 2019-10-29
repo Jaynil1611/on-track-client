@@ -67,59 +67,112 @@ export class SchedulePage implements OnInit {
     }
   }
 
-  async addFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any) {
-    if (this.user.hasFavorite(sessionData.name)) {
-      // woops, they already favorited it! What shall we do!?
-      // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-    } else {
-      // remember this session as a user favorite
-      this.user.addFavorite(sessionData.name);
+  // async addFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any) {
+  //   if (this.user.hasFavorite(sessionData.name)) {
+  //     // woops, they already favorited it! What shall we do!?
+  //     // prompt them to remove it
+  //     this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
+  //   } else {
+  //     // remember this session as a user favorite
+  //     this.user.addFavorite(sessionData.name);
 
-      // create an alert instance
-      const alert = await this.alertCtrl.create({
-        header: 'Favorite Added',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // close the sliding item
-            slidingItem.close();
-          }
-        }]
-      });
-      // now present the alert on top of all other content
-      await alert.present();
-    }
+  //     // create an alert instance
+  //     const alert = await this.alertCtrl.create({
+  //       header: 'Favorite Added',
+  //       buttons: [{
+  //         text: 'OK',
+  //         handler: () => {
+  //           // close the sliding item
+  //           slidingItem.close();
+  //         }
+  //       }]
+  //     });
+  //     // now present the alert on top of all other content
+  //     await alert.present();
+  //   }
 
-  }
+  // }
 
-  async removeFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any, title: string) {
-    const alert = await this.alertCtrl.create({
-      header: title,
-      message: 'Would you like to remove this session from your favorites?',
+  // async removeFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any, title: string) {
+  //   const alert = await this.alertCtrl.create({
+  //     header: title,
+  //     message: 'Would you like to remove this session from your favorites?',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         handler: () => {
+  //           // they clicked the cancel button, do not remove the session
+  //           // close the sliding item and hide the option buttons
+  //           slidingItem.close();
+  //         }
+  //       },
+  //       {
+  //         text: 'Remove',
+  //         handler: () => {
+  //           // they want to remove this session from their favorites
+  //           this.user.removeFavorite(sessionData.name);
+  //           this.updateSchedule();
+
+  //           // close the sliding item and hide the option buttons
+  //           slidingItem.close();
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   // now present the alert on top of all other content
+  //   await alert.present();
+  // }
+
+  async mark_done(slidingItem: HTMLIonItemSlidingElement, sessionData: any){
+    const alert=await this.alertCtrl.create({
+      header:'Diet done!!',
+      message:'Congratulations you are on step closer to acheiving your goal',
       buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-            // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
-
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        }
-      ]
-    });
-    // now present the alert on top of all other content
+              {
+                text: 'Cancel',
+                handler: () => {
+                  slidingItem.close();
+                }
+              },
+              {
+                text: 'Confirm',
+                handler: () => {
+                  // this.user.removeFavorite(sessionData.name);
+                  console.log("Enter the logic for handling dones here")
+                  this.updateSchedule();
+      
+                  // close the sliding item and hide the option buttons
+                  slidingItem.close();
+                }
+              }
+            ]
+    })
+    await alert.present();
+  }
+  async mark_not_done(slidingItem: HTMLIonItemSlidingElement, sessionData: any){
+    const alert=await this.alertCtrl.create({
+      header:'Diet not followed',
+      message:'Well You Could not Follow this one better luck next time',
+      buttons: [
+              {
+                text: 'Cancel',
+                handler: () => {
+                  slidingItem.close();
+                }
+              },
+              {
+                text: 'Confirm',
+                handler: () => {
+                  // this.user.removeFavorite(sessionData.name);
+                  console.log("Enter the logic for handling not dones here")
+                  this.updateSchedule();
+      
+                  // close the sliding item and hide the option buttons
+                  slidingItem.close();
+                }
+              }
+            ]
+    })
     await alert.present();
   }
 

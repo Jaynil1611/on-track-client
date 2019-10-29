@@ -1,4 +1,4 @@
-<ion-header no-border>
+<ion-header no-border >
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button color='primary' (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
@@ -6,40 +6,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen >
   <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager="false">
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
+      <img src="/assets/img/web_hi_res_512.png" class="slide-image" />
       <h2 class="slide-title">
         Welcome to
-        <b>ICA</b>
+        <b>On Track</b>
       </h2>
       <p>
         The
-        <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code
-        use.
+        <b>Diet tracking application</b> is a Practical way to keep yourself motivated and never loose track of your goals
       </p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic?</h2>
+      <h2 class="slide-title">Get Timely Remainders</h2>
       <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies
-        like HTML, CSS, and JavaScript.</p>
+        <b>On Track</b> Gives You Timely Reminders of when you should have your next meal and what you should eat as per the suggestions of your favorite dieticiens</p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic Appflow?</h2>
+      <h2 class="slide-title">Get consultations form trusted dieticians</h2>
       <p>
-        <b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new
-        level of app development agility to mobile dev teams.</p>
+        On Track Helps you establish contacts with trusted dieticians with a proper <b>registration number</b> .</p>
+        <p>Chose the best on basis of the rating and reviews</p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">Ready to Play?</h2>
+      <h2 class="slide-title">Ready to Begin?</h2>
       <ion-button fill="clear" (click)="startApp()">
         Continue
         <ion-icon slot="end" name="arrow-forward"></ion-icon>

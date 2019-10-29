@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { FirebaseService } from '../firebase.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class UserData {
 
   constructor(
     public events: Events,
-    public storage: Storage
+    public storage: Storage,
+    public firebase:FirebaseService
   ) { }
 
   hasFavorite(sessionName: string): boolean {
@@ -31,26 +33,52 @@ export class UserData {
     }
   }
 
-  login(username: string): Promise<any> {
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-      this.setUsername(username);
-      return this.events.publish('user:login');
-    });
+  login(email: string,password: string): Promise<any> {
+    return this.firebase.doLogin(email,password)
+      .then(res => {
+        console.log(res);
+        this.storage.set(this.HAS_LOGGED_IN, true);
+          this.setUsername(email);
+          this.events.publish('user:login');
+        }, err => {
+        console.log(err);
+        })
+    // return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+    //   this.setUsername(email);
+    //   return this.events.publish('user:login');
+    // });
   }
 
-  signup(username: string): Promise<any> {
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-      this.setUsername(username);
-      return this.events.publish('user:signup');
-    });
+  signup(email: string,password:string): Promise<any> {
+    return this.firebase.doRegister(email,password)
+      .then(res => {
+        console.log(res);
+        this.storage.set(this.HAS_LOGGED_IN, true);
+          this.setUsername(email);
+          this.events.publish('user:signup');
+        }, err => {
+        console.log(err);
+        })
+    // return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+    //   this.setUsername(email);
+    //   return this.events.publish('user:signup');
+    // });
   }
 
   logout(): Promise<any> {
-    return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-      return this.storage.remove('username');
-    }).then(() => {
-      this.events.publish('user:logout');
-    });
+    return this.firebase.doLogout()
+      .then(res => {
+        console.log(res);
+        this.storage.remove(this.HAS_LOGGED_IN);
+          this.events.publish('user:logout');
+        }, err => {
+        console.log(err);
+        })
+    // return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
+    //   return this.storage.remove('username');
+    // }).then(() => {
+    //   this.events.publish('user:logout');
+    // });
   }
 
   setUsername(username: string): Promise<any> {

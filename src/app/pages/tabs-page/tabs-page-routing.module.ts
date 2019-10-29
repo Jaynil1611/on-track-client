@@ -49,6 +49,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'calendar',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../calender/calender.module').then(m => m.CalenderPageModule)
+          }
+        ]
+      },
+      {
         path: 'about',
         children: [
           {
